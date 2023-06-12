@@ -1,5 +1,8 @@
 <?php
 
+use App\Http\Controllers\AllController;
+use App\Http\Controllers\ImportantController;
+use App\Http\Controllers\CompleteController;
 use App\Models\Note;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
@@ -18,17 +21,16 @@ use Illuminate\Support\Facades\Route;
 
 
 Route::get('/', function () {
-    return view('layouts.app');
+    return view('index');
 });
 
-Route::get('/all', function () {
-    return view('all.index');
+Route::prefix('all')->group(function() {
+    Route::get('/', [AllController::class, 'index'])->name('note.all');
+    Route::get('/create', [AllController::class, 'create'])->name('note.all.create');
 });
 
-Route::get('/important', function () {
-    return view('important.index');
-});
 
-Route::get('/complete', function () {
-    return view('complete.index');
-});
+Route::get('important', [ImportantController::class, 'index'])->name('note.important');
+
+Route::get('complete', [CompleteController::class, 'index'])->name('note.complete');
+

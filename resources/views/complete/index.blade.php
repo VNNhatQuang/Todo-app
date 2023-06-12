@@ -18,14 +18,14 @@
         <div id="content">
             <div class="content-box">
                 <form action="" method="GET">
-                    @for ($i = 0; $i < 5; $i++)
+                    @foreach ($listNote as $note)
                         <section class="note">
                             <div class="row">
-                                <p class="note-complete">Create Todo app</p>
+                                <p class="note-complete">{{ $note['content'] }}</p>
                             </div>
                             <i class="fa-regular fa-trash-can" title="Xóa"></i>
                         </section>
-                    @endfor
+                    @endforeach
                 </form>
             </div>
         </div>

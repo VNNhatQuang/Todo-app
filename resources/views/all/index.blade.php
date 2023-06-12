@@ -17,13 +17,13 @@
         {{-- Main Content --}}
         <div id="content">
             <div class="content-box">
-                <form action="" method="GET">
-                    @for ($i = 0; $i < 5; $i++)
+                <form action="{{ route("note.all") }}" method="GET">
+                    @foreach ($listNote as $note)
                         <section class="note">
                             <div class="row">
-                                <input type="checkbox" name="{{ $i }}" title="Đánh dấu hoàn thành"
+                                <input type="checkbox" name="{{ $note['id'] }}" title="Đánh dấu hoàn thành"
                                     onclick="document.querySelector('.content-box>form').submit();">
-                                <p>Create Todo app</p>
+                                <p>{{ $note['content'] }}</p>
                             </div>
                             <i class="fa-regular fa-pen-to-square" title="Chỉnh sửa"></i>
                             <i class="fa-regular fa-trash-can" title="Xóa"></i>
@@ -31,13 +31,13 @@
                                 onclick="document.querySelector('.content-box>form').submit();">
                             </i>
                         </section>
-                    @endfor
+                    @endforeach
                 </form>
             </div>
         </div>
 
         {{-- Pagination --}}
-        @include('layouts.pagination')
+        @include('layouts.pagination', compact('listNote', 'searchValue'))
 
         {{-- Add Note --}}
         @include('layouts.add-note')

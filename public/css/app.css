@@ -46,7 +46,7 @@ header {
 }
 
 #app-name>h5 {
-    color: grey;
+    color: var(--symbol-color);
     font-size: 1rem;
     padding: 10px 0;
     margin: 0 0 0 2rem;
@@ -62,7 +62,8 @@ header {
     cursor: pointer;
 }
 
-#user:hover, #user-nav {
+#user:hover,
+#user-nav {
     background-color: var(--nav-hover-bgr);
 }
 
@@ -133,6 +134,9 @@ header {
     border: 1.5px solid #ccc;
 }
 
+#box-search>button[type='submit']:hover {
+    background-color: #ddd;
+}
 
 .nav-active,
 .nav-active:hover {
@@ -155,6 +159,7 @@ header {
     align-items: center;
     padding: 1rem 2rem;
     margin: 0;
+    position: relative;
 }
 
 .list-nav a:hover {
@@ -164,6 +169,21 @@ header {
 
 .list-nav p {
     margin: 0 0 0 1rem;
+}
+
+.list-nav .total-note {
+    width: 30px;
+    height: 30px;
+    background: red;
+    padding: 2px 5px;
+    border-radius: 50%;
+    position: absolute;
+    right: 1rem;
+    text-align: center;
+}
+
+.list-nav .total-note>span {
+    color: #fff !important;
 }
 
 

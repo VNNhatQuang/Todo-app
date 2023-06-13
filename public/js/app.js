@@ -12,6 +12,17 @@ $(document).ready(() => {
     });
 
 
+
+    // Confirm Delete Note
+    var deleteNote = $('a#delete-note');
+    deleteNote.click((e) => {
+        const response = confirm('Xác nhận xóa?');
+        if(response == false)
+            e.preventDefault();
+    })
+
+
+
     // AJAX
 
 

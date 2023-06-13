@@ -20,5 +20,4 @@ class Note extends Model
         , 'user_name'
     ];
 
-
 }

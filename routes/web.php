@@ -24,13 +24,28 @@ Route::get('/', function () {
     return view('index');
 });
 
-Route::prefix('all')->group(function() {
+
+Route::prefix('all')->group(function () {
     Route::get('/', [AllController::class, 'index'])->name('note.all');
     Route::get('/create', [AllController::class, 'create'])->name('note.all.create');
+    Route::get('/edit/{id}', [AllController::class, 'edit'])->name('note.all.edit');
+    Route::get('/delete/{id}', [AllController::class, 'delete'])->name('note.all.delete');
+    Route::get('/markComplete', [AllController::class, 'markComplete'])->name('note.all.complete');
+    Route::get('/markImportant/{id}', [AllController::class, 'markImportant'])->name('note.all.important');
+    Route::get('/unMarkImportant/{id}', [AllController::class, 'unMarkImportant'])->name('note.all.unMarkImportant');
 });
 
 
-Route::get('important', [ImportantController::class, 'index'])->name('note.important');
+Route::prefix('important')->group(function () {
+    Route::get('/', [ImportantController::class, 'index'])->name('note.important');
+    Route::get('/create', [ImportantController::class, 'create'])->name('note.important.create');
+    Route::get('/delete/{id}', [ImportantController::class, 'delete'])->name('note.important.delete');
+    Route::get('/markComplete', [ImportantController::class, 'markComplete'])->name('note.important.complete');
+    Route::get('/unMarkImportant/{id}', [ImportantController::class, 'unMarkImportant'])->name('note.important.unMarkImportant');
+});
 
-Route::get('complete', [CompleteController::class, 'index'])->name('note.complete');
 
+Route::prefix('complete')->group(function () {
+    Route::get('/', [CompleteController::class, 'index'])->name('note.complete');
+    Route::get('/delete/{id}', [CompleteController::class, 'delete'])->name('note.complete.delete');
+});

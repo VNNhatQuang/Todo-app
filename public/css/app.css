@@ -172,8 +172,8 @@ header {
 }
 
 .list-nav .total-note {
-    width: 30px;
-    height: 30px;
+    min-width: 30px;
+    min-height: 30px;
     background: red;
     padding: 2px 5px;
     border-radius: 50%;
@@ -239,7 +239,7 @@ main {
 
 .content-box input[type='checkbox']:hover,
 .content-box i:hover {
-    color: #ccc;
+    color: var(--symbol-color) !important;
     cursor: pointer;
 }
 

@@ -59,19 +59,33 @@ class AllController extends Controller
             $note->is_complete = 0;
             $note->user_name = 'vnnquang';
             $note->save();
+            return redirect()->route('note.all');
         }
-
-        return redirect()->route('note.all');
     }
 
     /**
      * Sửa ghi chú
      *
+     * @param Request $request
      * @param [int] $id
      * @return void
      */
-    public function edit($id)
+    public function edit(Request $request, $id)
     {
+        // Validate
+        $data = $request->all();
+        $validator = Validator::make($data, [
+            'contentEdit' => [new NoteRule],
+        ]);
+
+        if ($validator->fails()) {
+            // Xử lý khi dữ liệu không hợp lệ
+            echo $validator->messages();
+        } else {
+            // Update
+            Note::where('id', $id)->update(['content' => $data['contentEdit']]);
+            return redirect()->route('note.all');
+        }
     }
 
     /**
@@ -92,9 +106,10 @@ class AllController extends Controller
      * @param Request $request
      * @return void
      */
-    public function markComplete(Request $request) {
+    public function markComplete(Request $request)
+    {
         $data = $request->all();
-        foreach($data as $id => $value) {
+        foreach ($data as $id => $value) {
             Note::where('id', $id)->update(['is_complete' => 1]);
             break;
         }
@@ -119,7 +134,8 @@ class AllController extends Controller
      * @param [type] $id
      * @return void
      */
-    public function unMarkImportant($id) {
+    public function unMarkImportant($id)
+    {
         Note::where('id', $id)->update(['important' => 0]);
         return redirect()->route('note.all');
     }

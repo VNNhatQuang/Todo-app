@@ -39,6 +39,7 @@ Route::prefix('all')->group(function () {
 Route::prefix('important')->group(function () {
     Route::get('/', [ImportantController::class, 'index'])->name('note.important');
     Route::get('/create', [ImportantController::class, 'create'])->name('note.important.create');
+    Route::get('/edit/{id}', [ImportantController::class, 'edit'])->name('note.important.edit');
     Route::get('/delete/{id}', [ImportantController::class, 'delete'])->name('note.important.delete');
     Route::get('/markComplete', [ImportantController::class, 'markComplete'])->name('note.important.complete');
     Route::get('/unMarkImportant/{id}', [ImportantController::class, 'unMarkImportant'])->name('note.important.unMarkImportant');

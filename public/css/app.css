@@ -244,7 +244,12 @@ main {
 }
 
 .content-box i {
+    color: #2b7cd3;
     margin: 0 8px;
+}
+
+section.note.note-edit-input {
+    display: none;
 }
 
 
@@ -280,8 +285,6 @@ input[name='content'] {
     padding-left: 30px !important;
     padding-right: 30px !important;
 }
-
-
 
 
 

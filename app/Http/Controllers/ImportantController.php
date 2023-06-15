@@ -28,7 +28,7 @@ class ImportantController extends Controller
             ->where('is_complete', 0)
             ->where('is_delete', 0)
             ->where("content", "LIKE", "%$searchValue%")
-            ->orderBy('updated_at', 'asc')
+            ->orderBy('created_at', 'asc')
             ->paginate(ImportantController::PAGE_SIZE);
         // Navigation
         $totalAll = Note::where(['user_name' => 'vnnquang', 'is_complete' => 0, 'is_delete' => 0])->count();
@@ -61,19 +61,34 @@ class ImportantController extends Controller
             $note->is_complete = 0;
             $note->user_name = 'vnnquang';
             $note->save();
+            return redirect()->route('note.important');
         }
 
-        return redirect()->route('note.important');
     }
 
     /**
-     * Sửa ghi chú quan trọng
+     * Sửa ghi chú
      *
      * @param Request $request
+     * @param [int] $id
      * @return void
      */
-    public function edit(Request $request)
+    public function edit(Request $request, $id)
     {
+        // Validate
+        $data = $request->all();
+        $validator = Validator::make($data, [
+            'contentEdit' => [new NoteRule],
+        ]);
+
+        if ($validator->fails()) {
+            // Xử lý khi dữ liệu không hợp lệ
+            echo $validator->messages();
+        } else {
+            // Update
+            Note::where('id', $id)->update(['content' => $data['contentEdit']]);
+            return redirect()->route('note.important');
+        }
     }
 
     /**

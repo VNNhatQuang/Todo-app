@@ -12,6 +12,8 @@ class ImportantController extends Controller
 {
     const PAGE_SIZE = 4;
 
+
+
     /**
      * Hiển thị danh sách tất cả ghi chú
      * Tìm kiếm và phân trang
@@ -36,6 +38,7 @@ class ImportantController extends Controller
         $totalComplete = Note::where(['user_name' => 'vnnquang', "is_complete" => 1, "is_delete" => 0])->count();
         return view('important.index', compact('listNote', 'searchValue', 'totalAll', 'totalImportant', 'totalComplete'));
     }
+
 
     /**
      * Tạo note - đánh dấu là quan trọng
@@ -63,8 +66,8 @@ class ImportantController extends Controller
             $note->save();
             return redirect()->route('note.important');
         }
-
     }
+
 
     /**
      * Sửa ghi chú
@@ -91,6 +94,7 @@ class ImportantController extends Controller
         }
     }
 
+
     /**
      * Xóa ghi chú quan trọng
      *
@@ -103,20 +107,23 @@ class ImportantController extends Controller
         return redirect()->route('note.important');
     }
 
+
     /**
      * Đánh dấu ghi chũ là đã hoàn thành
      *
      * @param Request $request
      * @return void
      */
-    public function markComplete(Request $request) {
+    public function markComplete(Request $request)
+    {
         $data = $request->all();
-        foreach($data as $id => $value) {
+        foreach ($data as $id => $value) {
             Note::where('id', $id)->update(['is_complete' => 1]);
             break;
         }
         return redirect()->route('note.important');
     }
+
 
     /**
      * Hủy đánh dấu ghi chú quan trọng

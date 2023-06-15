@@ -3,9 +3,6 @@
 use App\Http\Controllers\AllController;
 use App\Http\Controllers\ImportantController;
 use App\Http\Controllers\CompleteController;
-use App\Models\Note;
-use App\Models\User;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 /*

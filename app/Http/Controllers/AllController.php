@@ -12,6 +12,8 @@ class AllController extends Controller
 {
     const PAGE_SIZE = 4;
 
+
+
     /**
      * Hiển thị danh sách tất cả ghi chú
      * Tìm kiếm và phân trang
@@ -34,6 +36,7 @@ class AllController extends Controller
         $totalComplete = Note::where(['user_name' => 'vnnquang', "is_complete" => 1, "is_delete" => 0])->count();
         return view('all.index', compact('listNote', 'searchValue', 'totalAll', 'totalImportant', 'totalComplete'));
     }
+
 
     /**
      * Tạo mới ghi chú
@@ -63,6 +66,7 @@ class AllController extends Controller
         }
     }
 
+
     /**
      * Sửa ghi chú
      *
@@ -88,6 +92,7 @@ class AllController extends Controller
         }
     }
 
+
     /**
      * Xóa ghi chú - Xóa mềm
      *
@@ -99,6 +104,7 @@ class AllController extends Controller
         Note::where('id', $id)->update(['is_delete' => 1]);
         return redirect()->route('note.all');
     }
+
 
     /**
      * Đánh dấu ghi chũ là đã hoàn thành
@@ -116,6 +122,7 @@ class AllController extends Controller
         return redirect()->route('note.all');
     }
 
+
     /**
      * Đánh dấu ghi chú là quan trọng
      *
@@ -127,6 +134,7 @@ class AllController extends Controller
         Note::where('id', $id)->update(['important' => 1]);
         return redirect()->route('note.all');
     }
+
 
     /**
      * Hủy đánh dấu quan trọng

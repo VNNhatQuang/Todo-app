@@ -10,6 +10,8 @@ class CompleteController extends Controller
 {
     const PAGE_SIZE = 4;
 
+
+
     /**
      * Hiển thị danh sách tất cả ghi chú
      * Tìm kiếm và phân trang
@@ -32,6 +34,7 @@ class CompleteController extends Controller
         $totalComplete = Note::where(['user_name' => 'vnnquang', "is_complete" => 1, "is_delete" => 0])->count();
         return view('complete.index', compact('listNote', 'searchValue', 'totalAll', 'totalImportant', 'totalComplete'));
     }
+
 
     /**
      * Xóa note đã hoàn thành - Xóa cứng

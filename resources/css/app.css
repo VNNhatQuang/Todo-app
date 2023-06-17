@@ -1,0 +1,311 @@
+:root {
+    --primary-bgr-color: #f8f8f8;
+    --symbol-color: #2b7cd3;
+    --nav-hover-bgr: #eee;
+
+}
+
+
+
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+html {
+    height: 100%;
+}
+
+body {
+    height: 100%;
+}
+
+#main {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+
+.row {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    flex-wrap: unset;
+}
+
+
+
+/* HEADER */
+
+header {
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 1px solid #ccc;
+    background-color: var(--primary-bgr-color);
+}
+
+#app-name>h5 {
+    color: var(--symbol-color);
+    font-size: 1rem;
+    padding: 10px 0;
+    margin: 0 0 0 2rem;
+    text-transform: uppercase;
+}
+
+#user {
+    color: var(--symbol-color);
+    display: flex;
+    align-items: center;
+    padding: 0 20px;
+    margin-right: 2rem;
+    cursor: pointer;
+}
+
+#user:hover,
+#user-nav {
+    background-color: var(--nav-hover-bgr);
+}
+
+#user-nav {
+    display: none;
+    position: absolute;
+    right: 2rem;
+    top: 3rem;
+    background: #fff;
+    border: 1px solid #ccc;
+    box-shadow: 5px 10px 8px #888888;
+    z-index: 1000;
+}
+
+.user-list-nav {
+    list-style: none;
+    margin: 0;
+}
+
+.user-list-nav a,
+#logout button {
+    color: #000;
+    display: flex;
+    align-items: center;
+    padding: 10px 20px;
+    text-decoration: none;
+}
+
+#logout button {
+    border: none;
+    background-color: transparent;
+}
+
+.user-list-nav a:hover,
+#logout:hover {
+    background-color: var(--nav-hover-bgr);
+}
+
+.user-list-nav a p,
+#logout p {
+    margin: 0 0 0 10px;
+}
+
+.user-list-nav hr {
+    margin: 0;
+}
+
+
+
+/* NAVIGATION */
+
+#nav {
+    height: 100%;
+    background-color: var(--primary-bgr-color);
+    border-right: 1px solid #ccc;
+    float: left;
+
+}
+
+#box-search {
+    display: flex;
+    justify-content: center;
+    margin: 1rem;
+}
+
+#box-search>input[name='searchValue'] {
+    padding: 5px 10px;
+    border-radius: 8px 0 0 8px;
+    border: 1.5px solid #ccc;
+    border-right: 0;
+}
+
+#box-search>button[type='submit'] {
+    padding: 5px 10px;
+    border-radius: 0 8px 8px 0;
+    border: 1.5px solid #ccc;
+}
+
+#box-search>button[type='submit']:hover {
+    background-color: #ddd;
+}
+
+.nav-active,
+.nav-active:hover {
+    background: var(--symbol-color) !important;
+    color: #f8f8f8 !important;
+}
+
+.list-nav {
+    list-style: none;
+    padding: 0;
+}
+
+.list-nav hr {
+    margin: 0;
+}
+
+.list-nav a {
+    color: var(--symbol-color);
+    display: flex;
+    align-items: center;
+    padding: 1rem 2rem;
+    margin: 0;
+    position: relative;
+}
+
+.list-nav a:hover {
+    background-color: var(--nav-hover-bgr);
+    text-decoration: none;
+}
+
+.list-nav p {
+    margin: 0 0 0 1rem;
+}
+
+.list-nav .total-note {
+    min-width: 30px;
+    min-height: 30px;
+    background: red;
+    padding: 2px 5px;
+    border-radius: 50%;
+    position: absolute;
+    right: 1rem;
+    text-align: center;
+}
+
+.list-nav .total-note>span {
+    color: #fff !important;
+}
+
+
+
+/* MAIN */
+
+main {
+    height: 100%;
+    width: 100%;
+    display: inline-block;
+    position: relative;
+}
+
+.title {
+    margin: 1.5rem;
+}
+
+
+
+/* CONTENT */
+
+#content {
+    position: relative;
+    height: calc(100% / 2);
+    margin: 0 1.5rem;
+}
+
+.content-box {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    overflow: scroll;
+    overflow-x: hidden;
+    padding: 0 20px;
+    border: 1px solid #ccc;
+}
+
+.content-box section {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: #f8f8f8;
+    padding: 10px 20px;
+    margin: 1rem 0;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+}
+
+
+.content-box>form p {
+    margin: 0 2rem;
+}
+
+.content-box input[type='checkbox']:hover,
+.content-box i:hover {
+    color: var(--symbol-color) !important;
+    cursor: pointer;
+}
+
+.content-box i {
+    color: #2b7cd3;
+    margin: 0 8px;
+}
+
+section.note.note-edit-input {
+    display: none;
+}
+
+
+/* PAGINATION */
+
+main>nav {
+    margin: 2rem;
+}
+
+
+
+/* ADD NOTE */
+
+.add-note {
+    width: 100%;
+    position: absolute;
+    bottom: 40px;
+}
+
+.add-note>form {
+    margin: 1.5rem !important;
+}
+
+input[name='content'] {
+    width: 100%;
+    padding: 5px 10px;
+    border-radius: 8px 0 0 8px;
+    border: 1.5px solid #ccc;
+    border-right: 0;
+}
+
+.box-add-note>button[type='submit'] {
+    padding-left: 30px !important;
+    padding-right: 30px !important;
+}
+
+
+
+/* ALL */
+
+
+
+/* IMPORTANT */
+
+
+
+/* COMPLETE */
+
+.note-complete {
+    text-decoration: line-through;
+}

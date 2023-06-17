@@ -25,7 +25,7 @@
 Đã xóa {{ $note->updated_at->format('d/m/Y H:i:s') }}">
                                 <p class="note-complete">{{ $note->content }}</p>
                             </div>
-                            <a id="delete-note" href="{{ route('note.complete.delete', $note->id) }}">
+                            <a class="delete-note" href="{{ route('note.complete.delete', $note->id) }}">
                                 <i class="fa-regular fa-trash-can" title="Xóa"></i>
                             </a>
                         </section>

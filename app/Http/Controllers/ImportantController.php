@@ -13,6 +13,11 @@ class ImportantController extends Controller
     const PAGE_SIZE = 4;
 
 
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
 
     /**
      * Hiển thị danh sách tất cả ghi chú
@@ -23,9 +28,11 @@ class ImportantController extends Controller
      */
     public function index(Request $request): View
     {
+        $user = $request->session()->get('user');
+
         // Content
         $searchValue = $request->input('searchValue') ?? '';
-        $listNote = Note::where('user_name', 'vnnquang')
+        $listNote = Note::where('user_name', $user->user_name)
             ->where("important", 1)
             ->where('is_complete', 0)
             ->where('is_delete', 0)
@@ -33,9 +40,9 @@ class ImportantController extends Controller
             ->orderBy('created_at', 'asc')
             ->paginate(ImportantController::PAGE_SIZE);
         // Navigation
-        $totalAll = Note::where(['user_name' => 'vnnquang', 'is_complete' => 0, 'is_delete' => 0])->count();
-        $totalImportant = Note::where(['user_name' => 'vnnquang', 'is_complete' => 0, "important" => 1, "is_delete" => 0])->count();
-        $totalComplete = Note::where(['user_name' => 'vnnquang', "is_complete" => 1, "is_delete" => 0])->count();
+        $totalAll = Note::where(['user_name' => $user->user_name, 'is_complete' => 0, 'is_delete' => 0])->count();
+        $totalImportant = Note::where(['user_name' => $user->user_name, 'is_complete' => 0, "important" => 1, "is_delete" => 0])->count();
+        $totalComplete = Note::where(['user_name' => $user->user_name, "is_complete" => 1, "is_delete" => 0])->count();
         return view('important.index', compact('listNote', 'searchValue', 'totalAll', 'totalImportant', 'totalComplete'));
     }
 
@@ -48,6 +55,8 @@ class ImportantController extends Controller
      */
     public function create(Request $request)
     {
+        $user = $request->session()->get('user');
+
         $data = $request->all();
         $validator = Validator::make($data, [
             'content' => [new NoteRule],
@@ -62,7 +71,7 @@ class ImportantController extends Controller
             $note->is_delete = 0;
             $note->important = 1;
             $note->is_complete = 0;
-            $note->user_name = 'vnnquang';
+            $note->user_name = $user->user_name;
             $note->save();
             return redirect()->route('note.important');
         }

@@ -17,10 +17,13 @@
             </li>
             <hr>
             <li>
-                <a href="logout">
-                    <i class="fa-solid fa-arrow-right-from-bracket"></i>
-                    <p>Đăng xuất</p>
-                </a>
+                <form id="logout" action="{{ route('logout') }}" method="post">
+                    @csrf
+                    <button type="submit">
+                        <i class="fa-solid fa-arrow-right-from-bracket"></i>
+                        <p>Đăng xuất</p>
+                    </button>
+                </form>
             </li>
         </ul>
     </div>

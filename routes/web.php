@@ -3,6 +3,7 @@
 use App\Http\Controllers\AllController;
 use App\Http\Controllers\ImportantController;
 use App\Http\Controllers\CompleteController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -17,10 +18,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 
-Route::get('/', function () {
-    return view('index');
-});
-
+Route::redirect('/', '/login', 301);
 
 Route::prefix('all')->group(function () {
     Route::get('/', [AllController::class, 'index'])->name('note.all');
@@ -47,3 +45,13 @@ Route::prefix('complete')->group(function () {
     Route::get('/', [CompleteController::class, 'index'])->name('note.complete');
     Route::get('/delete/{id}', [CompleteController::class, 'delete'])->name('note.complete.delete');
 });
+
+
+
+Route::get('/register', [UserController::class, 'showRegistrationForm'])->name('register');
+Route::post('/register', [UserController::class, 'register']);
+
+Route::get('/login', [UserController::class, 'showLoginForm'])->name('login');
+Route::post('/login', [UserController::class, 'login']);
+
+Route::post('/logout', [UserController::class, 'logout'])->name('logout');

@@ -83,7 +83,8 @@ header {
     margin: 0;
 }
 
-.user-list-nav a {
+.user-list-nav a,
+#logout button {
     color: #000;
     display: flex;
     align-items: center;
@@ -91,11 +92,18 @@ header {
     text-decoration: none;
 }
 
-.user-list-nav a:hover {
+#logout button {
+    border: none;
+    background-color: transparent;
+}
+
+.user-list-nav a:hover,
+#logout:hover {
     background-color: var(--nav-hover-bgr);
 }
 
-.user-list-nav a p {
+.user-list-nav a p,
+#logout p {
     margin: 0 0 0 10px;
 }
 
@@ -301,3 +309,4 @@ input[name='content'] {
 .note-complete {
     text-decoration: line-through;
 }
+

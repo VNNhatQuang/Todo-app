@@ -55,4 +55,7 @@ Route::post('/login', [UserController::class, 'login']);
 Route::post('/logout', [UserController::class, 'logout'])->name('logout');
 
 
-Route::get('/account', [UserController::class, 'showUser'])->name('user');
+Route::prefix('/account')->group(function() {
+    Route::get('/', [UserController::class, 'showUser'])->name('user');
+    Route::get('/save', [UserController::class, 'save'])->name('user.save');
+});

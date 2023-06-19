@@ -126,12 +126,12 @@ class UserController extends Controller
 
 
     /**
-     * Đổi mật khẩu
+     * Lưu lại thông tin cá nhân
      *
      * @param Request $request
      * @return void
      */
-    public function changePassword(Request $request)
+    public function Save(Request $request)
     {
 
     }

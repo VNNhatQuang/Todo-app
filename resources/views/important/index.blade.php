@@ -9,7 +9,15 @@
 
         {{-- Title --}}
         <div class="title">
-            <h2>Quan trọng</h2>
+            <div class="row title-child">
+                <h2>Quan trọng</h2>
+                @error('content')
+                    <span style="color: red;">{{ $message }}</span>
+                @enderror
+                @error('contentEdit')
+                    <span style="color: red;">{{ $message }}</span>
+                @enderror
+            </div>
             <hr>
         </div>
 

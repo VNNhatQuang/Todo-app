@@ -25,7 +25,7 @@ class CompleteController extends Controller
      * @param Request $request
      * @return void
      */
-    public function index(Request $request): View
+    public function index(Request $request) : View
     {
         $user = $request->session()->get('user');
 
@@ -48,11 +48,10 @@ class CompleteController extends Controller
      * Xóa note đã hoàn thành - Xóa cứng
      *
      * @param [int] $id
-     * @return void
      */
     public function delete($id)
     {
         Note::destroy($id);
-        return redirect()->route('note.complete');
+        return back();
     }
 }

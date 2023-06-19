@@ -26,7 +26,7 @@ class ImportantController extends Controller
      * @param Request $request
      * @return void
      */
-    public function index(Request $request): View
+    public function index(Request $request) : View
     {
         $user = $request->session()->get('user');
 
@@ -51,7 +51,6 @@ class ImportantController extends Controller
      * Tạo note - đánh dấu là quan trọng
      *
      * @param Request $request
-     * @return void
      */
     public function create(Request $request)
     {
@@ -64,7 +63,8 @@ class ImportantController extends Controller
 
         if ($validator->fails()) {
             // Xử lý khi dữ liệu không hợp lệ
-            echo $validator->messages();
+            return back()
+                ->withErrors($validator);
         } else {
             $note = new Note();
             $note->content = $data['content'];
@@ -73,8 +73,8 @@ class ImportantController extends Controller
             $note->is_complete = 0;
             $note->user_name = $user->user_name;
             $note->save();
-            return redirect()->route('note.important');
         }
+        return back();
     }
 
 
@@ -83,7 +83,6 @@ class ImportantController extends Controller
      *
      * @param Request $request
      * @param [int] $id
-     * @return void
      */
     public function edit(Request $request, $id)
     {
@@ -95,12 +94,13 @@ class ImportantController extends Controller
 
         if ($validator->fails()) {
             // Xử lý khi dữ liệu không hợp lệ
-            echo $validator->messages();
+            return back()
+                ->withErrors($validator);
         } else {
             // Update
             Note::where('id', $id)->update(['content' => $data['contentEdit']]);
-            return redirect()->route('note.important');
         }
+        return back();
     }
 
 
@@ -108,20 +108,18 @@ class ImportantController extends Controller
      * Xóa ghi chú quan trọng
      *
      * @param [int] $id
-     * @return void
      */
     public function delete($id)
     {
         Note::where('id', $id)->update(['is_delete' => 1]);
-        return redirect()->route('note.important');
+        return back();
     }
 
 
     /**
-     * Đánh dấu ghi chũ là đã hoàn thành
+     * Đánh dấu ghi chú là đã hoàn thành
      *
      * @param Request $request
-     * @return void
      */
     public function markComplete(Request $request)
     {
@@ -130,7 +128,7 @@ class ImportantController extends Controller
             Note::where('id', $id)->update(['is_complete' => 1]);
             break;
         }
-        return redirect()->route('note.important');
+        return back();
     }
 
 
@@ -138,11 +136,10 @@ class ImportantController extends Controller
      * Hủy đánh dấu ghi chú quan trọng
      *
      * @param [int] $id
-     * @return void
      */
     public function unMarkImportant($id)
     {
         Note::where('id', $id)->update(['important' => 0]);
-        return redirect()->route('note.important');
+        return back();
     }
 }

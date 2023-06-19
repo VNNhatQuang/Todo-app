@@ -10,7 +10,15 @@
 
         {{-- Title --}}
         <div class="title">
-            <h2>Tất cả tác vụ</h2>
+            <div class="row title-child">
+                <h2>Tất cả tác vụ</h2>
+                @error('content')
+                    <span style="color: red;">{{ $message }}</span>
+                @enderror
+                @error('contentEdit')
+                    <span style="color: red;">{{ $message }}</span>
+                @enderror
+            </div>
             <hr>
         </div>
 

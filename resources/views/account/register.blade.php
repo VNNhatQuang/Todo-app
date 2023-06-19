@@ -15,16 +15,31 @@
 
 		<form action="{{ route('register') }}" method="post" enctype="multipart/form-data">
             @csrf
-			<input name="user_name" type="text" placeholder="User name" autofocus/>
-			<input name="full_name" type="text" placeholder="Full name"/>
+			<input name="user_name" type="text" placeholder="User name" autofocus value="{{ old('user_name') }}"/>
+            @error('user_name')
+                <span style="color: red;">{{ $message }}</span>
+            @enderror
+
+			<input name="full_name" type="text" placeholder="Full name" value="{{ old('full_name') }}"/>
+            @error('full_name')
+                <span style="color: red;">{{ $message }}</span>
+            @enderror
+
 			<input name="password" type="password" placeholder="Password"/>
+            @error('password')
+                <span style="color: red;">{{ $message }}</span>
+            @enderror
+
 			<input name="password_confirmation" type="password" placeholder="Re Password"/>
-            <input type="file" name="avatar" id="">
-			{{-- <%
-				if(request.getAttribute("Status") != null) {
-			%>
-				<span style="color: red;"><%=request.getAttribute("Status") %></span>
-			<%} %> --}}
+            @error('password_confirmation')
+                <span style="color: red;">{{ $message }}</span>
+            @enderror
+
+            <input type="file" name="avatar">
+            @error('avatar')
+                <span style="color: red;">{{ $message }}</span>
+            @enderror
+
 			<input type="submit" value="Register"/>
 			<a href="{{ route('login') }}">Click here to Login</a>
 		</form>

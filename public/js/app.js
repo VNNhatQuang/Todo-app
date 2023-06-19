@@ -3087,6 +3087,18 @@ $(document).ready(function () {
     });
   });
 
+  // Preview image in User
+  var imageInput = document.getElementById('image-input');
+  var previewImage = document.getElementById('preview-image');
+  imageInput.addEventListener('change', function (event) {
+    var file = event.target.files[0];
+    var reader = new FileReader();
+    reader.onload = function (e) {
+      previewImage.src = e.target.result;
+    };
+    reader.readAsDataURL(file);
+  });
+
   // AJAX
 });
 

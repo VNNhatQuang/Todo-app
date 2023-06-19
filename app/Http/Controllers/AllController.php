@@ -27,7 +27,7 @@ class AllController extends Controller
      * @param Request $request
      * @return void
      */
-    public function index(Request $request): View
+    public function index(Request $request) : View
     {
         $user = $request->session()->get('user');
         // Content
@@ -49,7 +49,6 @@ class AllController extends Controller
      * Tạo mới ghi chú
      *
      * @param Request $request
-     * @return void
      */
     public function create(Request $request)
     {
@@ -62,7 +61,8 @@ class AllController extends Controller
 
         if ($validator->fails()) {
             // Xử lý khi dữ liệu không hợp lệ
-            echo $validator->messages();
+            return back()
+                ->withErrors($validator);
         } else {
             $note = new Note();
             $note->content = $data['content'];
@@ -71,8 +71,9 @@ class AllController extends Controller
             $note->is_complete = 0;
             $note->user_name = $user->user_name;
             $note->save();
-            return redirect()->route('note.all');
         }
+
+        return back();
     }
 
 
@@ -81,12 +82,9 @@ class AllController extends Controller
      *
      * @param Request $request
      * @param [int] $id
-     * @return void
      */
     public function edit(Request $request, $id)
     {
-        $user = $request->session()->get('user');
-
         // Validate
         $data = $request->all();
         $validator = Validator::make($data, [
@@ -95,11 +93,12 @@ class AllController extends Controller
 
         if ($validator->fails()) {
             // Xử lý khi dữ liệu không hợp lệ
-            echo $validator->messages();
+            return back()
+                ->withErrors($validator);
         } else {
             // Update
             Note::where('id', $id)->update(['content' => $data['contentEdit']]);
-            return redirect()->route('note.all');
+            return back();
         }
     }
 
@@ -108,20 +107,18 @@ class AllController extends Controller
      * Xóa ghi chú - Xóa mềm
      *
      * @param [int] $id
-     * @return void
      */
     public function delete($id)
     {
         Note::where('id', $id)->update(['is_delete' => 1]);
-        return redirect()->route('note.all');
+        return back();
     }
 
 
     /**
-     * Đánh dấu ghi chũ là đã hoàn thành
+     * Đánh dấu ghi chú là đã hoàn thành
      *
      * @param Request $request
-     * @return void
      */
     public function markComplete(Request $request)
     {
@@ -130,7 +127,7 @@ class AllController extends Controller
             Note::where('id', $id)->update(['is_complete' => 1]);
             break;
         }
-        return redirect()->route('note.all');
+        return back();
     }
 
 
@@ -138,24 +135,22 @@ class AllController extends Controller
      * Đánh dấu ghi chú là quan trọng
      *
      * @param [int] $id
-     * @return void
      */
     public function markImportant($id)
     {
         Note::where('id', $id)->update(['important' => 1]);
-        return redirect()->route('note.all');
+        return back();
     }
 
 
     /**
      * Hủy đánh dấu quan trọng
      *
-     * @param [type] $id
-     * @return void
+     * @param [int] $id
      */
     public function unMarkImportant($id)
     {
         Note::where('id', $id)->update(['important' => 0]);
-        return redirect()->route('note.all');
+        return back();
     }
 }

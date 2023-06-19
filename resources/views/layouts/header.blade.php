@@ -9,6 +9,12 @@
     </div>
     <div id="user-nav">
         <ul class="user-list-nav">
+            <li class="text-center">
+                <div class="avatar text-center">
+                    <img src="{{ asset('storage/' . session('user')->avatar) }}">
+                </div>
+            </li>
+            <hr>
             <li>
                 <a href="account">
                     <i class="fa-solid fa-user"></i>

@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Note;
-use App\Rules\NoteRule;
+use App\Rules\SpacingRule;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
@@ -56,7 +56,7 @@ class AllController extends Controller
 
         $data = $request->all();
         $validator = Validator::make($data, [
-            'content' => [new NoteRule],
+            'content' => [new SpacingRule],
         ]);
 
         if ($validator->fails()) {
@@ -88,7 +88,7 @@ class AllController extends Controller
         // Validate
         $data = $request->all();
         $validator = Validator::make($data, [
-            'contentEdit' => [new NoteRule],
+            'contentEdit' => [new SpacingRule],
         ]);
 
         if ($validator->fails()) {

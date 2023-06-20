@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Note;
 use App\Models\User;
+use Illuminate\Contracts\View\View;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -19,7 +20,12 @@ class UserController extends Controller
     }
 
 
-    public function showRegistrationForm()
+    /**
+     * Hiển thị form đăng ký
+     *
+     * @return void
+     */
+    public function showRegistrationForm() : View
     {
         return view('account.register');
     }
@@ -46,8 +52,11 @@ class UserController extends Controller
         }
 
         // Thêm ảnh vào thư mục storage, avatarPath là path ảnh đc lưu vào csdl
-        $avatarPath = $request->file('avatar')->store('avatars', 'public');
-        $avatarPath = $avatarPath ?? '';
+        if ($request->file('avatar') != null) {
+            $avatarPath = $request->file('avatar')->store('avatars', 'public');
+        } else {
+            $avatarPath = '';
+        }
 
         User::create([
             'user_name' => $request->user_name,
@@ -60,7 +69,12 @@ class UserController extends Controller
     }
 
 
-    public function showLoginForm()
+    /**
+     * Hiển thị form đăng nhập
+     *
+     * @return void
+     */
+    public function showLoginForm() : View
     {
         return view('account.login');
     }
@@ -82,7 +96,7 @@ class UserController extends Controller
             $request->session()->regenerate();
             // Tạo biến session chứa thông tin user đăng nhập
             $user = User::where('user_name', $request->input('user_name'))->first();
-            $request->session()->put('user', $user);
+            session()->put('user', $user);
             return redirect()->intended('/all');
         }
         return back()
@@ -112,7 +126,13 @@ class UserController extends Controller
     }
 
 
-    public function showUser(Request $request)
+    /**
+     * Hiển thị form chỉnh sửa thông tin User
+     *
+     * @param Request $request
+     * @return void
+     */
+    public function showUser(Request $request) : View
     {
         $user = $request->session()->get('user');
 
@@ -129,10 +149,50 @@ class UserController extends Controller
      * Lưu lại thông tin cá nhân
      *
      * @param Request $request
-     * @return void
      */
-    public function Save(Request $request)
+    public function save(Request $request)
     {
+        // Validate
+        $validator = Validator::make($request->all(), [
+            'old_password' => ['required', 'string'],
+            'new_password' => ['required', 'string'],
+            'new_password_confirm' => ['required', 'string', 'same:new_password'],
+            'avatar' => 'image',
+        ]);
+        if ($validator->fails()) {
+            return back()
+                ->withErrors($validator);
+        }
 
+        // Kiểm tra mật khẩu cũ có đúng không
+        $user_name = session()->get('user')->user_name;
+        $password = User::where('user_name', $user_name)->value('password');
+        $passwordInput = $request->input('old_password');
+        if (Hash::check($passwordInput, $password)) {
+            // Handle khóa chính và avatar
+            $user_name = session()->get('user')->user_name;
+            $avatarPath =  session()->get('user')->avatar;
+            if ($request->file('avatar') != null) {
+                $avatarPath = $request->file('avatar')->store('avatars', 'public');
+            }
+            // Cập nhật
+            User::where('user_name', $user_name)
+                ->update([
+                    'password' => Hash::make($request->input('new_password')),
+                    'avatar' => $avatarPath,
+                ]);
+            // Cập nhật lại biến session
+            $newUser = User::where('user_name', $user_name)->first();
+            session()->put('user', $newUser);
+
+            return back()->with('success', 'Cập nhật thông tin thành công');
+        }
+
+        return back()
+            ->withErrors([
+                'old_password' => 'The old password is not correct.'
+            ]);
     }
+
+
 }

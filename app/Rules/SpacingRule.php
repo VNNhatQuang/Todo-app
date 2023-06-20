@@ -4,7 +4,7 @@ namespace App\Rules;
 
 use Illuminate\Contracts\Validation\Rule;
 
-class NoteRule implements Rule
+class SpacingRule implements Rule
 {
     /**
      * Create a new rule instance.

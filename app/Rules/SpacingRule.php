@@ -36,6 +36,6 @@ class SpacingRule implements Rule
      */
     public function message()
     {
-        return 'Trường không được chứa toàn ký tự khoảng trắng.';
+        return 'Không nhập nội dung toàn ký tự trắng';
     }
 }

@@ -3,12 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\NoteRequest;
-use App\Rules\SpacingRule;
 use App\Services\NavigationService;
 use App\Services\NoteService;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Validator;
 
 class AllController extends Controller
 {

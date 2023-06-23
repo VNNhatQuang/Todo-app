@@ -2,7 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Note;
+use App\Services\NavigationService;
+use App\Services\NoteService;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\Request;
 
@@ -10,12 +11,16 @@ class CompleteController extends Controller
 {
     const PAGE_SIZE = 4;
 
+    protected $navigationService;
+    protected $noteService;
 
-
-    public function __construct()
+    public function __construct(NavigationService $navigationService, NoteService $noteService)
     {
         $this->middleware('auth');
+        $this->navigationService = $navigationService;
+        $this->noteService = $noteService;
     }
+
 
 
     /**
@@ -25,22 +30,15 @@ class CompleteController extends Controller
      * @param Request $request
      * @return void
      */
-    public function index(Request $request) : View
+    public function index(Request $request): View
     {
         $user = $request->session()->get('user');
-
         // Content
         $searchValue = $request->input('searchValue') ?? '';
-        $listNote = Note::where('user_name', $user->user_name)
-            ->where("content", "LIKE", "%$searchValue%")
-            ->where("is_complete", 1)
-            ->orderBy('updated_at', 'asc')
-            ->paginate(CompleteController::PAGE_SIZE);
+        $listNote = $this->noteService->getListComplete($user->user_name, $searchValue, CompleteController::PAGE_SIZE);
         // Navigation
-        $totalAll = Note::where(['user_name' => $user->user_name, 'is_complete' => 0, 'is_delete' => 0])->count();
-        $totalImportant = Note::where(['user_name' => $user->user_name, 'is_complete' => 0, "important" => 1, "is_delete" => 0])->count();
-        $totalComplete = Note::where(['user_name' => $user->user_name, "is_complete" => 1, "is_delete" => 0])->count();
-        return view('complete.index', compact('listNote', 'searchValue', 'totalAll', 'totalImportant', 'totalComplete'));
+        $nav = $this->navigationService->countNoteByID($user->user_name);
+        return view('complete.index', compact('listNote', 'searchValue', 'nav'));
     }
 
 
@@ -51,7 +49,7 @@ class CompleteController extends Controller
      */
     public function delete($id)
     {
-        Note::destroy($id);
+        $this->noteService->destroy($id);
         return back();
     }
 }

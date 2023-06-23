@@ -2,21 +2,27 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Note;
-use App\Models\User;
+use App\Http\Requests\EditUserRequest;
+use App\Http\Requests\LoginRequest;
+use App\Http\Requests\RegisterUserRequest;
+use App\Services\NavigationService;
+use App\Services\UserService;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Validator;
 
 class UserController extends Controller
 {
 
+    protected $userService;
+    protected $navigationService;
 
-    public function __construct()
+    public function __construct(UserService $userService, NavigationService $navigationService)
     {
         $this->middleware('auth')->except(['showRegistrationForm', 'register', 'showLoginForm', 'login']);
+        $this->userService = $userService;
+        $this->navigationService = $navigationService;
     }
 
 
@@ -25,7 +31,7 @@ class UserController extends Controller
      *
      * @return void
      */
-    public function showRegistrationForm() : View
+    public function showRegistrationForm(): View
     {
         return view('account.register');
     }
@@ -36,29 +42,14 @@ class UserController extends Controller
      *
      * @param Request $request
      */
-    public function register(Request $request)
+    public function register(RegisterUserRequest $request)
     {
-        $validator = Validator::make($request->all(), [
-            'user_name' => 'required|string|max:255|unique:users',
-            'full_name' => 'required|string|max:255',
-            'password' => 'required|string|min:8|confirmed',
-            'avatar' => 'image',
-        ]);
-
-        if ($validator->fails()) {
-            return back()
-                ->withErrors($validator)
-                ->withInput();
-        }
-
         // Thêm ảnh vào thư mục storage, avatarPath là path ảnh đc lưu vào csdl
-        if ($request->file('avatar') != null) {
+        if ($request->file('avatar') != null)
             $avatarPath = $request->file('avatar')->store('avatars', 'public');
-        } else {
+        else
             $avatarPath = '';
-        }
-
-        User::create([
+        $this->userService->create([
             'user_name' => $request->user_name,
             'full_name' => $request->full_name,
             'password' => Hash::make($request->password),
@@ -74,7 +65,7 @@ class UserController extends Controller
      *
      * @return void
      */
-    public function showLoginForm() : View
+    public function showLoginForm(): View
     {
         return view('account.login');
     }
@@ -85,24 +76,17 @@ class UserController extends Controller
      *
      * @param Request $request
      */
-    public function login(Request $request)
+    public function login(LoginRequest $request)
     {
-        $credentials = $request->validate([
-            'user_name' => 'required|string',
-            'password' => 'required|string',
-        ]);
-
-        if (Auth::attempt($credentials)) {
+        if (Auth::attempt($request->validated())) {     // Sử dụng validated() để lấy dữ liệu đã được validate
             $request->session()->regenerate();
             // Tạo biến session chứa thông tin user đăng nhập
-            $user = User::where('user_name', $request->input('user_name'))->first();
+            $user = $this->userService->getUserByID($request->input('user_name'));
             session()->put('user', $user);
             return redirect()->intended('/all');
         }
         return back()
-            ->withErrors([
-                'error' => 'The provided credentials do not match our records.',
-            ])
+            ->withErrors(['error' => 'The provided credentials do not match our records.'])
             ->withInput();
     }
 
@@ -116,12 +100,10 @@ class UserController extends Controller
     public function logout(Request $request)
     {
         Auth::logout();
-
         $request->session()->invalidate();
         $request->session()->regenerateToken();
         // Xoá toàn bộ session
         $request->session()->flush();
-
         return redirect('/login')->with('success', 'Logged out successfully.');
     }
 
@@ -132,16 +114,13 @@ class UserController extends Controller
      * @param Request $request
      * @return void
      */
-    public function showUser(Request $request) : View
+    public function showUser(Request $request): View
     {
         $user = $request->session()->get('user');
-
         $searchValue = $request->input('searchValue') ?? '';
         // Navigation
-        $totalAll = Note::where(['user_name' => $user->user_name, 'is_complete' => 0, 'is_delete' => 0])->count();
-        $totalImportant = Note::where(['user_name' => $user->user_name, 'is_complete' => 0, "important" => 1, "is_delete" => 0])->count();
-        $totalComplete = Note::where(['user_name' => $user->user_name, "is_complete" => 1, "is_delete" => 0])->count();
-        return view('account.index', compact('searchValue', 'totalAll', 'totalImportant', 'totalComplete'));
+        $nav = $this->navigationService->countNoteByID($user->user_name);
+        return view('account.index', compact('searchValue', 'nav'));
     }
 
 
@@ -150,49 +129,29 @@ class UserController extends Controller
      *
      * @param Request $request
      */
-    public function save(Request $request)
+    public function save(EditUserRequest $request)
     {
-        // Validate
-        $validator = Validator::make($request->all(), [
-            'old_password' => ['required', 'string'],
-            'new_password' => ['required', 'string'],
-            'new_password_confirm' => ['required', 'string', 'same:new_password'],
-            'avatar' => 'image',
-        ]);
-        if ($validator->fails()) {
-            return back()
-                ->withErrors($validator);
-        }
-
         // Kiểm tra mật khẩu cũ có đúng không
-        $user_name = session()->get('user')->user_name;
-        $password = User::where('user_name', $user_name)->value('password');
+        $user = session()->get('user');
         $passwordInput = $request->input('old_password');
-        if (Hash::check($passwordInput, $password)) {
-            // Handle khóa chính và avatar
-            $user_name = session()->get('user')->user_name;
-            $avatarPath =  session()->get('user')->avatar;
-            if ($request->file('avatar') != null) {
+        if (Hash::check($passwordInput, $user->password)) {
+            // Handle avatar
+            $avatarPath = $user->avatar;
+            if ($request->file('avatar') != null)
                 $avatarPath = $request->file('avatar')->store('avatars', 'public');
-            }
             // Cập nhật
-            User::where('user_name', $user_name)
-                ->update([
+            $this->userService->update(
+                $user->user_name,
+                [
                     'password' => Hash::make($request->input('new_password')),
                     'avatar' => $avatarPath,
-                ]);
+                ]
+            );
             // Cập nhật lại biến session
-            $newUser = User::where('user_name', $user_name)->first();
+            $newUser = $this->userService->getUserByID($user->user_name);
             session()->put('user', $newUser);
-
             return back()->with('success', 'Cập nhật thông tin thành công');
         }
-
-        return back()
-            ->withErrors([
-                'old_password' => 'The old password is not correct.'
-            ]);
+        return back()->withErrors(['old_password' => 'The old password is not correct.']);
     }
-
-
 }

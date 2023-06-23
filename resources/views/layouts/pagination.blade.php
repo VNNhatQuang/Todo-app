@@ -2,7 +2,6 @@
 <nav aria-label="...">
     <ul class="pagination justify-content-center">
         <li class="page-item @if ($listNote->currentPage() === 1) {{ 'disabled' }} @endif">
-            {{-- <span class="page-link">Previous</span> --}}
             <a class="page-link" href="{{ $listNote->previousPageUrl() }}&searchValue={{ $searchValue }}">Previous</a>
         </li>
         @for ($index = 1; $index <= $listNote->lastPage(); $index++)

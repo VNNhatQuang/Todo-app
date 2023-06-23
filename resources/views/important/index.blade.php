@@ -14,9 +14,6 @@
                 @error('content')
                     <span style="color: red;">{{ $message }}</span>
                 @enderror
-                @error('contentEdit')
-                    <span style="color: red;">{{ $message }}</span>
-                @enderror
             </div>
             <hr>
         </div>
@@ -53,7 +50,7 @@ Chỉnh sửa lần cuối {{ $note->updated_at->format('d/m/Y H:i:s') }}">
                                 title="Đã tạo {{ $note->created_at->format('d/m/Y H:i:s') }}
 Chỉnh sửa lần cuối {{ $note->updated_at->format('d/m/Y H:i:s') }}">
                                 <input style="margin: 0 2rem; border: none; width: 100%; padding: 0 5px" type="text"
-                                    name="contentEdit" id="contentEdit" value="{{ $note->content }}">
+                                    name="content" id="content" value="{{ $note->content }}">
                             </div>
                             <button style="border: none; background: #f8f8f8;" class="save-note">
                                 <i class="fa-solid fa-check" title="Lưu"></i>

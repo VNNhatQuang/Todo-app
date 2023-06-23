@@ -11,9 +11,9 @@
             <a href="all" class="row all @if ($currentNav === 'all') {{ 'nav-active' }} @endif">
                 <i class="fa-solid fa-house"></i>
                 <p>Tất cả tác vụ</p>
-                @if ($totalAll > 0)
+                @if ($nav['totalAll'] > 0)
                     <div class="total-note">
-                        <span>{{ $totalAll }}</span>
+                        <span>{{ $nav['totalAll'] }}</span>
                     </div>
                 @endif
             </a>
@@ -23,9 +23,9 @@
             <a href="important" class="row important @if ($currentNav === 'important') {{ 'nav-active' }} @endif">
                 <i class="fa-solid fa-star"></i>
                 <p>Quan trọng</p>
-                @if ($totalImportant > 0)
+                @if ($nav['totalImportant'] > 0)
                     <div class="total-note">
-                        <span>{{ $totalImportant }}</span>
+                        <span>{{ $nav['totalImportant'] }}</span>
                     </div>
                 @endif
             </a>
@@ -35,9 +35,9 @@
             <a href="complete" class="row complete @if ($currentNav === 'complete') {{ 'nav-active' }} @endif">
                 <i class="fa-solid fa-circle-check"></i>
                 <p>Đã hoàn thành</p>
-                @if ($totalComplete > 0)
+                @if ($nav['totalComplete'] > 0)
                     <div class="total-note">
-                        <span>{{ $totalComplete }}</span>
+                        <span>{{ $nav['totalComplete'] }}</span>
                     </div>
                 @endif
             </a>

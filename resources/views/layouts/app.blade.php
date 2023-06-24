@@ -45,6 +45,29 @@
     </div>
 
 
+    <script>
+        $(document).ready(function() {
+            $('#box-search').submit(function(event) {
+                event.preventDefault(); // Ngăn chặn form gửi yêu cầu mặc định
+
+                var formData = $(this).serialize(); // Lấy dữ liệu từ form
+
+                $.ajax({
+                    type: 'GET',
+                    url: $('#box-search').attr('action'), // Thay đổi thành URL của controller xử lý tìm kiếm
+                    data: formData,
+                    success: function(response) {
+                        $("#main").html(response);
+                    },
+                    error: function(error) {
+                        alert("Your request is not valid!");
+                    }
+                });
+            });
+        });
+    </script>
+
+
 
     <script src="{{ asset('js/app.js') }}"></script>
 

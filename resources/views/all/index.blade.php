@@ -86,39 +86,5 @@ Chỉnh sửa lần cuối {{ $note->updated_at->format('d/m/Y H:i:s') }}">
             </form>
         </div>
 
-        {{-- <script>
-            $(document).ready(function() {
-                $(".form-search").submit(function(e) {
-                    e.preventDefault();
-                    doSearch(1);
-                    return;
-                });
-                doSearch({{ $listNote->currentPage() }});
-            })
-
-            function doSearch(page) {
-                var url = $("#box-search").prop("action");
-                var postData = $("#box-search").serializeArray();
-                postData.push({
-                    "name": "page",
-                    "value": page
-                });
-
-                $.ajax({
-                    url: url,
-                    type: "GET",
-                    data: postData,
-                    error: function() {
-                        alert("Your request is not valid!");
-                    },
-                    success: function(data) {
-                        $("#content").html(data);
-                    }
-                });
-
-                return;
-            }
-        </script> --}}
-
     </main>
 @endsection

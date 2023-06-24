@@ -8,6 +8,7 @@ use App\Http\Requests\RegisterUserRequest;
 use App\Services\NavigationService;
 use App\Services\UserService;
 use Illuminate\Contracts\View\View;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -29,9 +30,9 @@ class UserController extends Controller
     /**
      * Hiển thị form đăng ký
      *
-     * @return void
+     * @return View
      */
-    public function showRegistrationForm(): View
+    public function showRegistrationForm()
     {
         return view('account.register');
     }
@@ -40,7 +41,8 @@ class UserController extends Controller
     /**
      * Thực hiện đăng ký
      *
-     * @param Request $request
+     * @param RegisterUserRequest $request
+     * @return void
      */
     public function register(RegisterUserRequest $request)
     {
@@ -63,9 +65,9 @@ class UserController extends Controller
     /**
      * Hiển thị form đăng nhập
      *
-     * @return void
+     * @return View
      */
-    public function showLoginForm(): View
+    public function showLoginForm()
     {
         return view('account.login');
     }
@@ -74,7 +76,8 @@ class UserController extends Controller
     /**
      * Thực hiện đăng nhập
      *
-     * @param Request $request
+     * @param LoginRequest $request
+     * @return RedirectResponse
      */
     public function login(LoginRequest $request)
     {
@@ -112,9 +115,9 @@ class UserController extends Controller
      * Hiển thị form chỉnh sửa thông tin User
      *
      * @param Request $request
-     * @return void
+     * @return View
      */
-    public function showUser(Request $request): View
+    public function showUser(Request $request)
     {
         $user = $request->session()->get('user');
         $searchValue = $request->input('searchValue') ?? '';
@@ -127,7 +130,8 @@ class UserController extends Controller
     /**
      * Lưu lại thông tin cá nhân
      *
-     * @param Request $request
+     * @param EditUserRequest $request
+     * @return RedirectResponse
      */
     public function save(EditUserRequest $request)
     {
@@ -135,7 +139,7 @@ class UserController extends Controller
         $user = session()->get('user');
         $passwordInput = $request->input('old_password');
         if (Hash::check($passwordInput, $user->password)) {
-            // Handle avatar
+            // Xử lý ảnh (Thêm ảnh vào thư mục và lấy path ảnh)
             $avatarPath = $user->avatar;
             if ($request->file('avatar') != null)
                 $avatarPath = $request->file('avatar')->store('avatars', 'public');

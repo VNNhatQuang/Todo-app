@@ -6,6 +6,7 @@ use App\Http\Requests\NoteRequest;
 use App\Services\NavigationService;
 use App\Services\NoteService;
 use Illuminate\Contracts\View\View;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 
 class AllController extends Controller
@@ -28,9 +29,9 @@ class AllController extends Controller
      * Tìm kiếm và phân trang
      *
      * @param Request $request
-     * @return void
+     * @return View
      */
-    public function index(Request $request): View
+    public function index(Request $request)
     {
         $user = $request->session()->get('user');
         // Content
@@ -45,7 +46,8 @@ class AllController extends Controller
     /**
      * Tạo mới ghi chú
      *
-     * @param Request $request
+     * @param NoteRequest $request
+     * @return RedirectResponse
      */
     public function create(NoteRequest $request)
     {
@@ -59,8 +61,9 @@ class AllController extends Controller
     /**
      * Sửa ghi chú
      *
-     * @param Request $request
-     * @param [int] $id
+     * @param NoteRequest $request
+     * @param int $id
+     * @return RedirectResponse
      */
     public function edit(NoteRequest $request, $id)
     {
@@ -73,7 +76,8 @@ class AllController extends Controller
     /**
      * Xóa ghi chú - Xóa mềm
      *
-     * @param [int] $id
+     * @param int $id
+     * @return RedirectResponse
      */
     public function delete($id)
     {
@@ -86,6 +90,7 @@ class AllController extends Controller
      * Đánh dấu ghi chú là đã hoàn thành
      *
      * @param Request $request
+     * @return RedirectResponse
      */
     public function markComplete(Request $request)
     {
@@ -101,7 +106,8 @@ class AllController extends Controller
     /**
      * Đánh dấu ghi chú là quan trọng
      *
-     * @param [int] $id
+     * @param int $id
+     * @return RedirectResponse
      */
     public function markImportant($id)
     {
@@ -113,7 +119,8 @@ class AllController extends Controller
     /**
      * Hủy đánh dấu quan trọng
      *
-     * @param [int] $id
+     * @param int $id
+     * @return RedirectResponse
      */
     public function unMarkImportant($id)
     {

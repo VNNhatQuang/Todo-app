@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Services\NavigationService;
 use App\Services\NoteService;
 use Illuminate\Contracts\View\View;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 
 class CompleteController extends Controller
@@ -28,9 +29,9 @@ class CompleteController extends Controller
      * Tìm kiếm và phân trang
      *
      * @param Request $request
-     * @return void
+     * @return View
      */
-    public function index(Request $request): View
+    public function index(Request $request)
     {
         $user = $request->session()->get('user');
         // Content
@@ -45,7 +46,8 @@ class CompleteController extends Controller
     /**
      * Xóa note đã hoàn thành - Xóa cứng
      *
-     * @param [int] $id
+     * @param int $id
+     * @return RedirectResponse
      */
     public function delete($id)
     {

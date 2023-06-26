@@ -78,7 +78,7 @@ Chỉnh sửa lần cuối {{ $note->updated_at->format('d/m/Y H:i:s') }}">
 
         {{-- Add Note --}}
         <div class="add-note">
-            <form action="{{ route('note.all.create') }}" method="GET" id="box-search" class="box-add-note">
+            <form action="{{ route('note.all.create') }}" method="GET" class="box-add-note box-input">
                 <input type="text" name="content" placeholder="Thêm tác vụ" required autofocus>
                 <button type="submit" title="Thêm mới ghi chú">
                     <i class="fa-solid fa-plus"></i>

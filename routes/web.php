@@ -18,7 +18,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 
-Route::redirect('/', '/login', 301);
+Route::redirect('/', '/login');
 
 Route::prefix('all')->group(function () {
     Route::get('/', [AllController::class, 'index'])->name('note.all');

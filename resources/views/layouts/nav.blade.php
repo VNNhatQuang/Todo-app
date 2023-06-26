@@ -1,5 +1,5 @@
 <nav id="nav">
-    <form action="" method="GET" id="box-search">
+    <form action="" method="GET" id="box-search" class="box-input">
         <input type="text" name="searchValue" value="{{ $searchValue }}" placeholder="Tìm kiếm tác vụ">
         <button type="submit" title="Tìm kiếm">
             <i class="fa-solid fa-magnifying-glass"></i>

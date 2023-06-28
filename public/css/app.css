@@ -2,10 +2,7 @@
     --primary-bgr-color: #f8f8f8;
     --symbol-color: #2b7cd3;
     --nav-hover-bgr: #eee;
-
 }
-
-
 
 * {
     padding: 0;
@@ -34,8 +31,6 @@ body {
     flex-wrap: unset;
 }
 
-
-
 /* HEADER */
 
 header {
@@ -45,7 +40,20 @@ header {
     background-color: var(--primary-bgr-color);
 }
 
-#app-name>h5 {
+#menu {
+    display: none;
+    padding: 0.5rem 0.8rem;
+    margin: 0 0 0 2rem;
+    border: 1px solid grey;
+    cursor: pointer;
+}
+
+#app-name {
+    display: flex;
+    align-items: center;
+}
+
+#app-name > h5 {
     color: var(--symbol-color);
     font-size: 1rem;
     padding: 10px 0;
@@ -113,8 +121,6 @@ header {
     margin: 0;
 }
 
-
-
 /* NAVIGATION */
 
 #nav {
@@ -122,7 +128,6 @@ header {
     background-color: var(--primary-bgr-color);
     border-right: 1px solid #ccc;
     float: left;
-
 }
 
 .box-input {
@@ -131,20 +136,20 @@ header {
     margin: 1rem;
 }
 
-.box-input>input[name='searchValue'] {
+.box-input > input[name="searchValue"] {
     padding: 5px 10px;
     border-radius: 8px 0 0 8px;
     border: 1.5px solid #ccc;
     border-right: 0;
 }
 
-.box-input>button[type='submit'] {
+.box-input > button[type="submit"] {
     padding: 5px 10px;
     border-radius: 0 8px 8px 0;
     border: 1.5px solid #ccc;
 }
 
-.box-input>button[type='submit']:hover {
+.box-input > button[type="submit"]:hover {
     background-color: #ddd;
 }
 
@@ -192,11 +197,9 @@ header {
     text-align: center;
 }
 
-.list-nav .total-note>span {
+.list-nav .total-note > span {
     color: #fff !important;
 }
-
-
 
 /* MAIN */
 
@@ -215,8 +218,6 @@ main {
     justify-content: space-between;
     align-items: center;
 }
-
-
 
 /* CONTENT */
 
@@ -247,12 +248,11 @@ main {
     border-radius: 8px;
 }
 
-
-.content-box>form p {
+.content-box > form p {
     margin: 0 2rem;
 }
 
-.content-box input[type='checkbox']:hover,
+.content-box input[type="checkbox"]:hover,
 .content-box i:hover {
     color: var(--symbol-color) !important;
     cursor: pointer;
@@ -267,14 +267,11 @@ section.note.note-edit-input {
     display: none;
 }
 
-
 /* PAGINATION */
 
-main>nav {
+main > nav {
     margin: 2rem;
 }
-
-
 
 /* ADD NOTE */
 
@@ -284,11 +281,11 @@ main>nav {
     bottom: 40px;
 }
 
-.add-note>form {
+.add-note > form {
     margin: 1.5rem !important;
 }
 
-input[name='content'] {
+input[name="content"] {
     width: 100%;
     padding: 5px 10px;
     border-radius: 8px 0 0 8px;
@@ -296,28 +293,20 @@ input[name='content'] {
     border-right: 0;
 }
 
-.box-add-note>button[type='submit'] {
+.box-add-note > button[type="submit"] {
     padding-left: 30px !important;
     padding-right: 30px !important;
 }
 
-
-
 /* ALL */
 
-
-
 /* IMPORTANT */
-
-
 
 /* COMPLETE */
 
 .note-complete {
     text-decoration: line-through;
 }
-
-
 
 /* USER */
 
@@ -345,7 +334,7 @@ li.text-center {
     height: 100px;
 }
 
-.avatar>img {
+.avatar > img {
     width: 100%;
     border-radius: 50%;
     height: 100%;

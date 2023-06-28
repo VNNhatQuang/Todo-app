@@ -1,5 +1,8 @@
 <header>
     <div id="app-name">
+        <div id="menu">
+            <i class="fa-solid fa-bars fa-2xl" style="color: #323232;"></i>
+        </div>
         <h5>Todo</h4>
     </div>
     <div id="user">

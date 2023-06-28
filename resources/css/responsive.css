@@ -1,0 +1,194 @@
+/* TABLET */
+
+.show-nav {
+    transform: translateX(0) !important;
+}
+
+@media (min-width: 740px) and (max-width: 1023px) {
+    header {
+        align-items: center;
+    }
+
+    #menu {
+        display: block;
+    }
+
+    #menu:active {
+        background-color: #ccc;
+    }
+
+    #app-name > h5 {
+        font-size: 2rem;
+        margin: 0 0 0 3rem;
+    }
+
+    #user {
+        font-size: 1.5rem;
+    }
+
+    .avatar {
+        width: 180px;
+        height: 180px;
+    }
+
+    .user-list-nav a,
+    #logout button {
+        padding: 15px 30px;
+        font-size: 1.5rem;
+    }
+
+    #nav {
+        transform: translateX(-100%);
+        transition: transform linear 0.1s;
+        width: calc(100% / 2);
+        position: fixed;
+        z-index: 1000;
+    }
+
+    .box-input > input[name="searchValue"] {
+        width: 100%;
+        font-size: 1.2rem;
+    }
+
+    .list-nav a {
+        font-size: 1.5rem;
+    }
+
+    .list-nav .total-note {
+        min-width: 45px;
+        min-height: 45px;
+    }
+
+    .title {
+        margin: 2rem 1.5rem;
+    }
+
+    .title-child h2 {
+        font-size: 2.5rem;
+    }
+
+    input[type="checkbox"] {
+        width: 1.5rem;
+    }
+
+    .content-box > form p {
+        font-size: 1.5rem;
+    }
+
+    .content-box i {
+        font-size: 1.5rem;
+    }
+
+    main > nav {
+        margin: 3rem;
+        font-size: 1.5rem;
+    }
+
+    .add-note {
+        bottom: 70px;
+    }
+
+    input[name="content"] {
+        padding: 20px;
+    }
+
+    input[name="content"]::placeholder {
+        font-size: 1.4rem;
+    }
+
+    .box-input {
+        margin: 2rem 1rem;
+    }
+
+    .box-input > button[type="submit"] {
+        padding: 15px 30px;
+    }
+
+    .form-control {
+        font-size: 1.5rem;
+    }
+}
+
+/* MOBILE */
+
+@media (max-width: 740px) {
+    header {
+        font-size: 1.4rem;
+        padding: 5px 0;
+    }
+
+    #app-name > h5 {
+        display: none;
+    }
+
+    #menu {
+        display: block;
+        font-size: 12px;
+        margin: 0 0 0 1rem;
+    }
+
+    #user {
+        margin-right: 1rem;
+    }
+
+    .avatar {
+        width: 120px;
+        height: 120px;
+    }
+
+    #nav {
+        transform: translateX(-100%);
+        transition: transform linear 0.1s;
+        width: calc(100%);
+        position: fixed;
+        z-index: 1000;
+    }
+
+    .box-input {
+        margin: 2rem 1rem;
+    }
+
+    .box-input > input[name="searchValue"] {
+        width: 100%;
+        font-size: 18px;
+    }
+
+    .box-input > button[type="submit"] {
+        padding: 10px 20px;
+    }
+
+    .list-nav a {
+        font-size: 20px;
+    }
+
+    .list-nav .total-note {
+        min-width: 35px;
+        min-height: 35px;
+    }
+
+    #content {
+        margin: 0 0.5rem;
+    }
+
+    .content-box {
+        padding: 0 0.5rem;
+    }
+
+    .content-box section {
+        font-size: 1.2rem;
+    }
+
+    input[type=checkbox], input[type=radio] {
+        box-sizing: border-box;
+        padding: 0;
+        width: 15px;
+    }
+
+    .content-box > form p {
+        margin: 0 1rem;
+    }
+
+    input[name="content"] {
+        font-size: 18px;
+    }
+}

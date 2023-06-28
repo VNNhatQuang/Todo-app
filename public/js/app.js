@@ -3022,6 +3022,17 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _bootstrap__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
 
 $(document).ready(function () {
+  // Toggle Navigation (Mobile and Tablet mode)
+  var menu = $('#menu');
+  var nav = $('nav');
+  menu.click(function () {
+    nav.toggleClass('show-nav');
+  });
+  var main = $('main');
+  main.click(function () {
+    nav.removeClass('show-nav');
+  });
+
   // Close and Open User Navigation
   var rowHeaderMain = $('.row');
   var user = $('#user');
@@ -9713,6 +9724,19 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./resources/css/responsive.css":
+/*!**************************************!*\
+  !*** ./resources/css/responsive.css ***!
+  \**************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+// extracted by mini-css-extract-plugin
+
+
+/***/ }),
+
 /***/ "./node_modules/axios/lib/adapters/adapters.js":
 /*!*****************************************************!*\
   !*** ./node_modules/axios/lib/adapters/adapters.js ***!
@@ -13902,6 +13926,7 @@ const isThenable = (thing) =>
 /******/ 		// [resolve, reject, Promise] = chunk loading, 0 = chunk loaded
 /******/ 		var installedChunks = {
 /******/ 			"/js/app": 0,
+/******/ 			"css/responsive": 0,
 /******/ 			"css/app": 0,
 /******/ 			"css/login": 0
 /******/ 		};
@@ -13953,9 +13978,10 @@ const isThenable = (thing) =>
 /******/ 	// startup
 /******/ 	// Load entry module and return exports
 /******/ 	// This entry module depends on other loaded chunks and execution need to be delayed
-/******/ 	__webpack_require__.O(undefined, ["css/app","css/login"], () => (__webpack_require__("./resources/js/app.js")))
-/******/ 	__webpack_require__.O(undefined, ["css/app","css/login"], () => (__webpack_require__("./resources/css/login.css")))
-/******/ 	var __webpack_exports__ = __webpack_require__.O(undefined, ["css/app","css/login"], () => (__webpack_require__("./resources/css/app.css")))
+/******/ 	__webpack_require__.O(undefined, ["css/responsive","css/app","css/login"], () => (__webpack_require__("./resources/js/app.js")))
+/******/ 	__webpack_require__.O(undefined, ["css/responsive","css/app","css/login"], () => (__webpack_require__("./resources/css/login.css")))
+/******/ 	__webpack_require__.O(undefined, ["css/responsive","css/app","css/login"], () => (__webpack_require__("./resources/css/app.css")))
+/******/ 	var __webpack_exports__ = __webpack_require__.O(undefined, ["css/responsive","css/app","css/login"], () => (__webpack_require__("./resources/css/responsive.css")))
 /******/ 	__webpack_exports__ = __webpack_require__.O(__webpack_exports__);
 /******/ 	
 /******/ })()

@@ -2,6 +2,17 @@ import './bootstrap';
 
 $(document).ready(() => {
 
+    // Toggle Navigation (Mobile and Tablet mode)
+    const menu = $('#menu');
+    const nav = $('nav');
+    menu.click(() => {
+        nav.toggleClass('show-nav');
+    })
+    const main = $('main');
+    main.click(() => {
+        nav.removeClass('show-nav');
+    })
+
 
     // Close and Open User Navigation
     const rowHeaderMain = $('.row');

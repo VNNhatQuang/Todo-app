@@ -23,9 +23,9 @@
         <div id="content">
             <form action="{{ route('user.save') }}" method="post" id="form-user" enctype="multipart/form-data">
                 @csrf
-                <div class="row">
+                <div class="row box-user">
                     <div class="col-8">
-                        <div class="row">
+                        <div class="row no-flex">
                             <div class="form-group col-4">
                                 <label for="user_name">Tên tài khoản</label>
                                 <input type="text" class="form-control" id="user_name"
@@ -63,7 +63,7 @@
                             @enderror
                         </div>
                     </div>
-                    <div class="col-4">
+                    <div class="col-4 box-avatar">
                         <div class="form-group col-12">
                             <img src="{{ asset('storage/' . session('user')->avatar) }}" class="img-thumbnail"
                                 id="preview-image">

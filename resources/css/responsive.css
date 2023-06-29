@@ -5,6 +5,10 @@
 }
 
 @media (min-width: 740px) and (max-width: 1023px) {
+    #main {
+        overflow: auto;
+    }
+
     header {
         align-items: center;
     }
@@ -85,7 +89,8 @@
     }
 
     .add-note {
-        bottom: 70px;
+        position: static;
+        padding-bottom: 1rem;
     }
 
     input[name="content"] {
@@ -107,11 +112,43 @@
     .form-control {
         font-size: 1.5rem;
     }
+
+    .box-user {
+        display: block !important;
+    }
+
+    label {
+        display: inline-block;
+        margin-bottom: .5rem;
+        font-size: 1.8rem;
+    }
+
+    .col-4,
+    .col-8 {
+        max-width: unset;
+    }
+
+    .box-avatar {
+        display: inline-block;
+        margin: 4rem 0;
+    }
+
+    .no-flex {
+        display: block;
+    }
+
+    .btn {
+        font-size: 2rem;
+    }
 }
 
 /* MOBILE */
 
 @media (max-width: 740px) {
+    #main {
+        overflow: auto;
+    }
+
     header {
         font-size: 1.4rem;
         padding: 5px 0;
@@ -178,7 +215,8 @@
         font-size: 1.2rem;
     }
 
-    input[type=checkbox], input[type=radio] {
+    input[type="checkbox"],
+    input[type="radio"] {
         box-sizing: border-box;
         padding: 0;
         width: 15px;
@@ -190,5 +228,28 @@
 
     input[name="content"] {
         font-size: 18px;
+    }
+
+    .box-user {
+        display: block !important;
+    }
+
+    .col-4,
+    .col-8 {
+        padding: 0;
+        max-width: unset;
+    }
+
+    .col-12 {
+        padding: 0;
+    }
+
+    .box-avatar {
+        display: inline-block;
+        margin: 4rem 0;
+    }
+
+    .no-flex {
+        display: block;
     }
 }

@@ -1,9 +1,10 @@
 # Todo App 🗒️
-Notes app with user-categorized notes, including 3 main categories for notes:
-- Total
-- Important
-- Complete
-Using PHP 8.0.28, Laravel 9, Blade, Javascript (JQuery), HTML, CSS, Bootstrap 5, MySQL
+- Notes app with user-categorized notes, including 3 main categories for notes:
+    - Total
+    - Important
+    - Complete
+- Using PHP 8, Laravel 9, Javascript (JQuery), HTML, CSS, Bootstrap 5, MySQL
+- Responsive web desgin ✅
 - [⬇️ Dowload Database script in Google Driver](https://drive.google.com/file/d/10_CmiGiJKxKez4B3DVI-V03o1TfNrseQ/view?usp=drive_link) (MySQL)
 
 ## ✨ Purpose

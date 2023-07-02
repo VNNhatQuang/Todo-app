@@ -5,7 +5,6 @@
     - Complete
 - Using PHP 8, Laravel 9, Javascript (JQuery), HTML, CSS, Bootstrap 5, MySQL
 - Responsive web desgin ✅
-- [⬇️ Dowload Database script in Google Driver](https://drive.google.com/file/d/10_CmiGiJKxKez4B3DVI-V03o1TfNrseQ/view?usp=drive_link) (MySQL)
 
 ## ✨ Purpose
 Practice the functions learned in Laravel and more
@@ -34,7 +33,12 @@ Practice the functions learned in Laravel and more
     ```
     php artisan key:generate
     ```
-1. **Step 5:** Run project
+1. **Step 5:** Run migrations
+    ```
+    php artisan migrate
+    ```
+1. **Step 6:** Press "y" and Enter to create Schema "todo"
+1. **Step 7:** Run project
     ```
     php artisan serve
     ```

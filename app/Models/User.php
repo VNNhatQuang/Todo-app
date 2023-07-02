@@ -43,6 +43,13 @@ class User extends Model implements Authenticatable
     ];
 
 
+    // Định nghĩa khóa ngoại (1 người có nhiều ghi chú)
+    public function notes()
+    {
+        return $this->hasMany(Note::class, 'user_name', 'user_name');
+    }
+
+
     // Các hàm cần khi implements Authenticatable
 
     public function getAuthIdentifierName()
@@ -74,7 +81,4 @@ class User extends Model implements Authenticatable
     {
         return 'remember_token';
     }
-
-
-
 }

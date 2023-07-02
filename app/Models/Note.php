@@ -12,12 +12,13 @@ class Note extends Model
     protected $table = 'note';
 
     protected $fillable = [
-        'id'
-        , 'content'
-        , 'is_delete'
-        , 'important'
-        , 'is_complete'
-        , 'user_name'
+        'id', 'content', 'is_delete', 'important', 'is_complete', 'user_name'
     ];
 
+
+    // Định nghĩa mối quan hệ ngược từ Note tới User
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'user_name', 'user_name');
+    }
 }

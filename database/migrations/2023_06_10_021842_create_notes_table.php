@@ -13,9 +13,15 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('notes', function (Blueprint $table) {
+        Schema::create('note', function (Blueprint $table) {
             $table->id();
+            $table->text('content');
             $table->timestamps();
+            $table->boolean('is_delete');
+            $table->boolean('important');
+            $table->boolean('is_complete');
+            $table->string('user_name');
+            $table->foreign('user_name')->references('user_name')->on('users');
         });
     }
 

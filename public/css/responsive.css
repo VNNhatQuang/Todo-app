@@ -149,6 +149,10 @@
 /* MOBILE */
 
 @media (max-width: 740px) {
+    body {
+        padding-bottom: 1rem;
+    }
+
     #main {
         overflow: auto;
     }
@@ -228,6 +232,10 @@
 
     .content-box > form p {
         margin: 0 1rem;
+    }
+
+    .add-note {
+        position: static;
     }
 
     input[name="content"] {

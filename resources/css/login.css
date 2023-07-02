@@ -80,3 +80,17 @@ a {
 	text-decoration: none;
 	color: #23aaf2;
 }
+
+
+/* MOBILE */
+
+@media (max-width: 740px) {
+    #form-login {
+        min-width: 100%;
+        border: unset;
+    }
+
+    #form-login>form>* {
+        margin-bottom: 30px;
+    }
+}
